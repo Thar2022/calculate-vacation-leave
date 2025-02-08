@@ -1,4 +1,3 @@
-<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,39 +10,66 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body> 
-
-
-
-   <div class="container">
+<body>
+  <!-- ใช้ class container ของ Bootstrap -->
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="form-container">
       <h2 class="text-center">Sample Form</h2>
       <form>
         <div class="row">
-          <div class="mb-3">
-            <label for="name" class="form-label">วันที่เริ่มงาน</label>
-            <input type="date" class="form-control" id="date-work" aria-describedby="helpId" placeholder="เลือกวันที่เริ่มเข้าทำงานที่นี่" />
-            <small id="helpId" class="form-text text-muted">Help text</small>
+
+          <div class="row">
+            <div class="mb-3 col-6">
+              <label class="form-label">วันที่เริ่มงาน</label>
+              <input type="date" class="form-control" name="dateStartWork"
+                placeholder="เลือกวันที่เริ่มเข้าทำงานที่นี่" />
+            </div>
+            <div class="mb-3 col-6">
+              <label class="form-label">สัญญาจ้าง</label>
+              <select class="form-select" name="employeeContact">
+                <option value="0">รายเดือน</option>
+                <option value="1">รายวัน</option>
+              </select>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">จำนวนวันที่ลาไปแล้ว</label>
-            <input type="number" class="form-control" id="date-amont-leave" aria-describedby="helpId" placeholder="ใส่จำนวนวันที่ลาไปแล้ว" />
-            <small id="helpId" class="form-text text-muted">Help text</small>
+
+          <div class="row   ">
+            <div class="col-6 mb-3">
+              <label class="form-label">จำนวนวันที่เคยลา</label>
+              <input type="number" class="form-control" name="dateAmontLeave" placeholder="วัน" />
+            </div>
+            <div class="col-6 ">
+              <label for="date-amont-leave" class="form-label me-2">จำนวนชั่วโมงที่เคยลา</label>
+              <input type="number" class="form-control" name="hourAmontLeave"
+                placeholder="ชั่วโมง" />
+            </div>
           </div>
-           <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" aria-describedby="helpId" placeholder="Enter your email" />
-            <small id="helpId" class="form-text text-muted">Help text</small>
+
+          <div class=" row mb-3   "> 
+            <div class="col-6  ">
+              <label for="date-amont-leave" class="form-label me-2">วันลาสะสมจากปีก่อน</label>
+              <input type="number" class="form-control" name="hourAmontLeave"
+                placeholder="ชั่วโมง" />
+            </div>
           </div>
-          <div id="hello"></div>
-          <button type="button" id="incrementButton" class="btn btn-primary mt-3">เพิ่ม +1</button> <!-- ปุ่มเพิ่ม +1 -->
-     
+
+          <div class="row  mt-3">
+            <div class="col-6 mb-3">
+              <div class="input-group">
+                <input type="text" class="form-control" name="result" placeholder="ผลลัพธ์" readonly
+                  aria-describedby="basic-addon1">
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <button type="button" id="summit" class="btn btn-primary w-100">คำนวณ</button>
+            </div>
+          </div>
+
+
         </div>
       </form>
     </div>
   </div>
-
-
 
   <script src="scripts.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
