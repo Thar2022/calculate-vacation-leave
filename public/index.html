@@ -26,14 +26,14 @@
             <label class="form-label">สัญญาจ้าง</label>
             <select class="form-select" name="employeeContact">
               <option value="0">รายเดือน</option>
-              <!-- <option value="1">รายวัน</option> -->
+              <option value="1">รายวัน</option>
             </select>
           </div>
         </div>
   
         <div class="row">
           <!-- วันที่เคยลาในปีนี้ -->
-          <div class="col-12 col-md-6 mb-3">
+          <div class="col-12 col-md-6  ">
             <label class="form-label">วันที่เคยลาในปีนี้</label>
             <input type="number" class="form-control" name="dateAmountLeave" placeholder="กรอกจำนวนวัน" min="0" />
           </div>
@@ -44,15 +44,15 @@
           </div>
         </div>
   
-        <div class="row mb-3">
+        <div class="row mb-3  mt-3 ">
           <!-- วันลาสะสมที่ได้จากปีก่อน ๆ -->
-          <div class="col-12 col-md-6">
-            <label for="date-amont-leave" class="form-label me-2">วันลาสะสมที่ได้จากปีก่อน ๆ</label>
+          <div class="col-12 col-md-6 ">
+            <label for="date-amont-leave" class="form-label me-2">วันลาสะสมที่ได้จากปีก่อน</label>
             <input type="number" class="form-control" name="leaveDaysFromPast" placeholder="กรอกจำนวนวัน" />
           </div>
           <!-- ชั่วโมงลาสะสมที่ได้จากปีก่อน ๆ -->
           <div class="col-12 col-md-6">
-            <label for="date-amont-leave" class="form-label me-2">ชั่วโมงลาสะสมที่ได้จากปีก่อน ๆ</label>
+            <label for="date-amont-leave" class="form-label me-2">ชั่วโมงลาสะสมที่ได้จากปีก่อน</label>
             <input type="number" class="form-control" name="leaveHourFromPast" step="0.5" placeholder="กรอกจำนวนชั่วโมง" />
           </div>
         </div>
@@ -73,7 +73,7 @@
   </div>
   
  
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script> 
   <script type="module" src="scripts.js"></script> 
   <script type="module" src="./LeaveRequestModel.js"></script>  
