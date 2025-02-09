@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (result.dateAmountLeave < 0 || result.dateAmountLeave < 0)
                 throw { message: "กรุณากรอกข้อมูลที่ถูกต้อง  <br>เนื่องจากระบบคำนวณแล้วได้ค่าติดลบ" }
             const dateThai = displayDateThai(result);
-            const resultField = form.querySelector("input[name='result']");
-            resultField.value = dateThai;
+            const resultField = form.querySelector("div[name='result']");
+            resultField.innerHTML = dateThai;
 
         } catch (err) {
             swal({

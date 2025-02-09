@@ -15,22 +15,22 @@
   <div class="container d-flex justify-content-center align-items-center min-vh-100 mt-3 mt-md-0">
     <div class="form-container">
 
-      <div class="row header-refresh" >
-        <h2 class="text-center">คำนวณวันลาพักร้อน</h2> 
-        <i class="fa fa-refresh" id="reset"  style="font-size:24px"></i>
+      <div class="row header-refresh">
+        <h2 class="text-center">คำนวณวันลาพักร้อน</h2>
+        <i class="fa fa-refresh" id="reset" style="font-size:24px"></i>
       </div>
 
 
       <form>
         <div class="row">
           <!-- วันที่เริ่มงาน -->
-          <div class="mb-3 col-12 col-md-6">
+          <div class=" col-12 col-md-6">
             <label class="form-label">วันที่เริ่มงาน</label>
             <input type="date" class="form-control" name="dateStartWork" placeholder="เลือกวันที่เริ่มเข้าทำงานที่นี่"
               required />
           </div>
           <!-- สัญญาจ้าง -->
-          <div class="mb-3 col-12 col-md-6">
+          <div class="  col-12 col-md-6">
             <label class="form-label">สัญญาจ้าง</label>
             <select class="form-select" name="employeeContact">
               <option value="0">รายเดือน</option>
@@ -38,7 +38,9 @@
             </select>
           </div>
         </div>
+
         <hr>
+
         <div class="row">
           <!-- วันที่เคยลาในปีนี้ -->
           <div class="col-12 col-md-6  ">
@@ -46,31 +48,36 @@
             <input type="number" class="form-control" name="dateAmountLeave" placeholder="กรอกจำนวนวัน" min="0" />
           </div>
           <!-- ชั่วโมงที่เคยลาในปีนี้ -->
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 mt-1 mt-md-0">
             <label for="date-amont-leave" class="form-label me-2">ชั่วโมงที่เคยลาในปีนี้</label>
-            <input type="number" class="form-control" name="hourAmountLeave"  min="0" step="0.5"
+            <input type="number" class="form-control" name="hourAmountLeave" min="0" step="0.5"
               placeholder="กรอกจำนวนชั่วโมง" />
           </div>
         </div>
+
         <hr>
-        <div class="row mb-3  mt-3 "> 
+
+        <div class="row mb-3  mt-3 ">
           <div class="col-12 col-md-6">
             <label for="leaveDaysFromPast" class="form-label me-2">วันลาสะสมที่ได้จากปีก่อน</label>
             <input type="number" class="form-control" name="leaveDaysFromPast" placeholder="กรอกจำนวนวัน" min="0" />
           </div>
-          
+
           <!-- ชั่วโมงลาสะสมที่ได้จากปีก่อน -->
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 mt-1 mt-md-0">
             <label for="leaveHourFromPast" class="form-label me-2">ชั่วโมงลาสะสมที่ได้จากปีก่อน</label>
-            <input type="number" class="form-control" name="leaveHourFromPast" step="0.5" placeholder="กรอกจำนวนชั่วโมง" min="0" />
+            <input type="number" class="form-control" name="leaveHourFromPast" step="0.5" placeholder="กรอกจำนวนชั่วโมง"
+              min="0" />
           </div>
         </div>
+
         <hr>
+
         <div class="row mt-3">
           <div class="col-12 col-md-6 mb-3">
-            <div class="input-group">
-              <input type="text" class="form-control" name="result" id="result" placeholder="ผลลัพธ์" readonly
-                aria-describedby="basic-addon1">
+            <div class="input-group justify-content-center" name="result" id="result">
+              <!-- <input type="text" class="form-control" name="result" id="result" placeholder="ผลลัพธ์" readonly
+                aria-describedby="basic-addon1"> -->
             </div>
           </div>
           <div class="col-12 col-md-6 mb-3">
