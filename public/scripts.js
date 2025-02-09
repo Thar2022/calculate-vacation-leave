@@ -1,14 +1,16 @@
 import LeaveRequestModel from './LeaveRequestModel.js';
 import { displayDateThai } from './utils.js';
+console.log("ee",document.getElementById("result"))
+document.getElementById("result").value = "2"
 
 document.addEventListener("DOMContentLoaded", function () {
-    const summitButton = document.getElementById("summit"); 
+    const summitButton = document.getElementById("summit");
     const form = document.querySelector("form");
     summitButton.addEventListener("click", function (event) {
         event.preventDefault();
-        if (!form.checkValidity()) { 
-            form.reportValidity(); 
-            return;  
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
         }
         const formObject = Object.fromEntries(new FormData(form));
         const leaveRequest = new LeaveRequestModel(
