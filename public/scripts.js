@@ -104,8 +104,9 @@ class LeaveRequestModel {
         const rightHourPerMonth = this.hourPerDay / 2;
         const startWorkDate = moment(leaveRequestModel.dateStartWork);
         const monthExperience = currentDate.diff(startWorkDate, "months");
-
-
+        const yearExperience = currentDate.diff(startWorkDate, "years");
+        if (yearExperience < 3 && this.getLeaveHoursFromPast())
+            throw { message: "ประสบการณ์น้อยกว่า 3 ปี  <br>จะไม่มีวันลาสะสมที่ได้จากปีก่อน" } 
         if (monthExperience >= 4) {
             const nowRightHourFromMonth = currentMonth * rightHourPerMonth;
             return this.convertToDaysAndHours(nowRightHourFromMonth);
@@ -122,10 +123,13 @@ class LeaveRequestModel {
         const yearExperience = currentDate.diff(startWorkDate, "years");
 
         const nowRightHourFromMonth = currentMonth * rightHourPerMonth;
-
-        if (startWorkDate.year() >= 2025) {
-            if (monthExperience >= 4) {
-                return this.convertToDaysAndHours(nowRightHourFromMonth);
+        if (yearExperience < 3 && this.getLeaveHoursFromPast())
+            throw { message: "ประสบการณ์น้อยกว่า 3 ปี  <br>จะไม่มีวันลาสะสมที่ได้จากปีก่อน" }
+        if (startWorkDate.year() >= 2025) { 
+            
+            if (monthExperience >= 4) { 
+                const totalLeave = nowRightHourFromMonth - this.getLeaveInHours();
+                return this.convertToDaysAndHours(totalLeave);
             }
             throw new Error("คุณยังไม่ผ่านทดลองงาน");
         } else if (startWorkDate.year() === 2024) {
