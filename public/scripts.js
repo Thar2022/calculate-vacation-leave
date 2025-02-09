@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const summitButton = document.getElementById("summit");
     const form = document.querySelector("form");
+    document.getElementById("reset").addEventListener("click",()=>form.reset())
     summitButton.addEventListener("click", function (event) {
         event.preventDefault();
         if (!form.checkValidity()) {
@@ -32,8 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 icon: "warning",
             })
             console.log("error : ", err)
-        }
-
+        } 
 
     });
 });
