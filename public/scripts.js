@@ -22,8 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const result = leaveRequest.calculate()
             if (result.dateAmountLeave < 0 || result.dateAmountLeave < 0)
                 throw { message: "กรุณากรอกข้อมูลที่ถูกต้อง" }
-            const dateThai = displayDateThai(result);
-            console.log("result", result)
+            const dateThai = displayDateThai(result); 
             const resultField = form.querySelector("input[name='result']");
             resultField.value = dateThai;
 
@@ -106,7 +105,7 @@ class LeaveRequestModel {
                 const nowRightHourFromMonth = currentMonth * rightHourPerMonth;
                 return this.convertToDaysAndHours(nowRightHourFromMonth);
             }
-            throw new Error("คุณยังไม่ผ่านโปรนะครับ");
+            throw new Error("คุณยังไม่ผ่านทดลองงาน");
         }
     }
 
@@ -124,7 +123,7 @@ class LeaveRequestModel {
             if (monthExperience >= 4) {
                 return this.convertToDaysAndHours(nowRightHourFromMonth);
             }
-            throw new Error("คุณยังไม่ผ่านโปรนะครับ");
+            throw new Error("คุณยังไม่ผ่านทดลองงาน");
         } else if (startWorkDate.year() === 2024) {
             if (leaveRequestModel.dateAmountLeave + leaveRequestModel > 6) {
                 throw new Error("คุณเข้ามาในปี 67 ลามากสุดได้ 6 วัน");
