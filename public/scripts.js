@@ -19,16 +19,21 @@ document.addEventListener("DOMContentLoaded", function () {
             formObject.leaveHourFromPast
         );
         try {
-            const result = leaveRequest.calculate() 
+            const result = leaveRequest.calculate()
             if (result.dateAmountLeave < 0 || result.dateAmountLeave < 0)
-                throw { message: "กรุณากรอกข้อมูลที่ถูกต้อง" }
+                throw { message: "กรุณากรอกข้อมูลที่ถูกต้อง  <br>เนื่องจากระบบคำนวณแล้วได้ค่าติดลบ" }
             const dateThai = displayDateThai(result);
             const resultField = form.querySelector("input[name='result']");
             resultField.value = dateThai;
 
         } catch (err) {
             swal({
-                text: err.message,
+                content: {
+                    element: 'div',
+                    attributes: {
+                        innerHTML: err.message, // ใช้ innerHTML แทนเพื่อแสดง HTML
+                    },
+                },
                 icon: "warning",
             })
             console.log("error : ", err)
@@ -93,12 +98,12 @@ class LeaveRequestModel {
         };
     }
 
-    calculateDayContact(leaveRequestModel) { 
+    calculateDayContact(leaveRequestModel) {
         const currentDate = moment();
         const currentMonth = currentDate.get("month") + 1;
         const rightHourPerMonth = this.hourPerDay / 2;
         const startWorkDate = moment(leaveRequestModel.dateStartWork);
-        const monthExperience = currentDate.diff(startWorkDate, "months"); 
+        const monthExperience = currentDate.diff(startWorkDate, "months");
 
 
         if (monthExperience >= 4) {
