@@ -100,7 +100,7 @@ class LeaveRequestModel {
         const startWorkDate = moment(leaveRequestModel.dateStartWork);
         const monthExperience = currentDate.diff(startWorkDate, "months");
 
-        if (startWorkDate.year() === 2025) {
+        if (startWorkDate.year() >= 2025) {
             if (monthExperience >= 4) {
                 const nowRightHourFromMonth = currentMonth * rightHourPerMonth;
                 return this.convertToDaysAndHours(nowRightHourFromMonth);
@@ -119,7 +119,7 @@ class LeaveRequestModel {
 
         const nowRightHourFromMonth = currentMonth * rightHourPerMonth;
 
-        if (startWorkDate.year() === 2025) {
+        if (startWorkDate.year() >= 2025) {
             if (monthExperience >= 4) {
                 return this.convertToDaysAndHours(nowRightHourFromMonth);
             }
