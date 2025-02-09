@@ -2,8 +2,7 @@ import LeaveRequestModel from './LeaveRequestModel.js';
 import { displayDateThai } from './utils.js';
 
 document.addEventListener("DOMContentLoaded", function () {
-    const summitButton = document.getElementById("summit");
-
+    const summitButton = document.getElementById("summit"); 
     const form = document.querySelector("form");
     summitButton.addEventListener("click", function (event) {
         event.preventDefault();

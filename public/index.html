@@ -10,7 +10,7 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body> 
+<body>
   <div class="container d-flex justify-content-center align-items-center min-vh-100 mt-3 mt-md-0">
     <div class="form-container">
       <h2 class="text-center">โปรแกรมคำนวณวันลา</h2>
@@ -19,7 +19,8 @@
           <!-- วันที่เริ่มงาน -->
           <div class="mb-3 col-12 col-md-6">
             <label class="form-label">วันที่เริ่มงาน</label>
-            <input type="date" class="form-control" name="dateStartWork" placeholder="เลือกวันที่เริ่มเข้าทำงานที่นี่" required/>
+            <input type="date" class="form-control" name="dateStartWork" placeholder="เลือกวันที่เริ่มเข้าทำงานที่นี่"
+              required />
           </div>
           <!-- สัญญาจ้าง -->
           <div class="mb-3 col-12 col-md-6">
@@ -30,7 +31,7 @@
             </select>
           </div>
         </div>
-  
+
         <div class="row">
           <!-- วันที่เคยลาในปีนี้ -->
           <div class="col-12 col-md-6  ">
@@ -40,10 +41,11 @@
           <!-- ชั่วโมงที่เคยลาในปีนี้ -->
           <div class="col-12 col-md-6">
             <label for="date-amont-leave" class="form-label me-2">ชั่วโมงที่เคยลาในปีนี้</label>
-            <input type="number" class="form-control" name="hourAmountLeave" step="0.5" placeholder="กรอกจำนวนชั่วโมง" />
+            <input type="number" class="form-control" name="hourAmountLeave" step="0.5"
+              placeholder="กรอกจำนวนชั่วโมง" />
           </div>
         </div>
-  
+
         <div class="row mb-3  mt-3 ">
           <!-- วันลาสะสมที่ได้จากปีก่อน ๆ -->
           <div class="col-12 col-md-6 ">
@@ -53,34 +55,36 @@
           <!-- ชั่วโมงลาสะสมที่ได้จากปีก่อน ๆ -->
           <div class="col-12 col-md-6">
             <label for="date-amont-leave" class="form-label me-2">ชั่วโมงลาสะสมที่ได้จากปีก่อน</label>
-            <input type="number" class="form-control" name="leaveHourFromPast" step="0.5" placeholder="กรอกจำนวนชั่วโมง" />
+            <input type="number" class="form-control" name="leaveHourFromPast" step="0.5"
+              placeholder="กรอกจำนวนชั่วโมง" />
           </div>
         </div>
-  
+
         <div class="row mt-3">
           <div class="col-12 col-md-6 mb-3">
             <div class="input-group">
-              <input type="text" class="form-control" name="result" placeholder="ผลลัพธ์" readonly aria-describedby="basic-addon1">
+              <input type="text" class="form-control" name="result" placeholder="ผลลัพธ์" readonly
+                aria-describedby="basic-addon1">
             </div>
           </div>
           <div class="col-12 col-md-6 mb-3">
             <button type="submit" id="summit" class="btn btn-primary w-100">คำนวณ</button>
           </div>
         </div>
-  
+
       </form>
     </div>
   </div>
-  
- 
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script> 
-  <script type="module" src="scripts.js"></script> 
-  <script type="module" src="LeaveRequestModel.js"></script>  
-  <script type="module" src="utils.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+  <script type="module" src="LeaveRequestModel.js"></script>
+  <script type="module" src="utils.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+  <script type="module" src="scripts.js"></script>
 </body>
 
 </html>
