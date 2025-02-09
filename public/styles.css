@@ -8,7 +8,7 @@ body, html {
   .form-container {
     /* ใช้ class ของ bootstrap เช่น form-control, mb-3 */
     width: 100%;
-    max-width: 500px; /* กำหนดขนาดความกว้างของฟอร์ม */
+    max-width: 550px; /* กำหนดขนาดความกว้างของฟอร์ม */
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
