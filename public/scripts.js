@@ -1,7 +1,7 @@
-// import LeaveRequestModel from 'LeaveRequestModel.js';
-// import { displayDateThai } from 'utils.js';
+import LeaveRequestModel from 'LeaveRequestModel.js';
+import { displayDateThai } from 'utils.js';
 console.log("ee",document.getElementById("result"))
-document.getElementById("result").value = "2"
+document.getElementById("result").value = "22mm"
 
 document.addEventListener("DOMContentLoaded", function () {
     const summitButton = document.getElementById("summit");
