@@ -21,9 +21,9 @@ html {
 .header-refresh { 
   position: relative; 
 } 
-.fa.fa-refresh {
+/* .fa.fa-refresh {
   position: absolute;
   left:90% ;
   width: 1px;
   cursor: pointer;
-}  
+}   */
