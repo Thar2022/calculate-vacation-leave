@@ -1,5 +1,4 @@
-import LeaveRequestModel from './LeaveRequestModel.js';
-import { displayDateThai } from './utils.js';
+ 
 console.log("ee",document.getElementById("result"))
 document.getElementById("result").value = "2"
 
