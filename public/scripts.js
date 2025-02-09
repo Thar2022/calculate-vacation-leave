@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const summitButton = document.getElementById("summit");
     const form = document.querySelector("form");
-    document.getElementById("reset").addEventListener("click",()=>form.reset())
+    document.getElementById("reset").addEventListener("click", () => form.reset())
     summitButton.addEventListener("click", function (event) {
         event.preventDefault();
         if (!form.checkValidity()) {
@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
             formObject.leaveHourFromPast
         );
         try {
-            const result = leaveRequest.calculate()
+            const result = leaveRequest.calculate() 
             if (result.dateAmountLeave < 0 || result.dateAmountLeave < 0)
                 throw { message: "กรุณากรอกข้อมูลที่ถูกต้อง" }
-            const dateThai = displayDateThai(result); 
+            const dateThai = displayDateThai(result);
             const resultField = form.querySelector("input[name='result']");
             resultField.value = dateThai;
 
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 icon: "warning",
             })
             console.log("error : ", err)
-        } 
+        }
 
     });
 });
@@ -93,20 +93,19 @@ class LeaveRequestModel {
         };
     }
 
-    calculateDayContact(leaveRequestModel) {
+    calculateDayContact(leaveRequestModel) { 
         const currentDate = moment();
         const currentMonth = currentDate.get("month") + 1;
         const rightHourPerMonth = this.hourPerDay / 2;
         const startWorkDate = moment(leaveRequestModel.dateStartWork);
-        const monthExperience = currentDate.diff(startWorkDate, "months");
+        const monthExperience = currentDate.diff(startWorkDate, "months"); 
 
-        if (startWorkDate.year() >= 2025) {
-            if (monthExperience >= 4) {
-                const nowRightHourFromMonth = currentMonth * rightHourPerMonth;
-                return this.convertToDaysAndHours(nowRightHourFromMonth);
-            }
-            throw new Error("คุณยังไม่ผ่านทดลองงาน");
+
+        if (monthExperience >= 4) {
+            const nowRightHourFromMonth = currentMonth * rightHourPerMonth;
+            return this.convertToDaysAndHours(nowRightHourFromMonth);
         }
+        throw new Error("คุณยังไม่ผ่านทดลองงาน");
     }
 
     calculateMonthContact(leaveRequestModel) {
