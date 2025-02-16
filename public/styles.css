@@ -1,23 +1,16 @@
-/* ไม่จำเป็นต้องใช้ CSS ในการจัดตำแหน่ง เพราะใช้ bootstrap container แล้ว */
 body,
 html {
   height: 100%;
   margin: 0;
-  /* ลบ flex จาก body, html เพราะใช้ container ของ bootstrap แล้ว */
 }
-
 .form-container {
-  /* ใช้ class ของ bootstrap เช่น form-control, mb-3 */
   width: 100%;
   max-width: 550px;
-  /* กำหนดขนาดความกว้างของฟอร์ม */
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  background-color: #fff;
+  background-color:   #f3ecd1;
 }
-
-
 .header-refresh { 
   position: relative; 
 } 
