@@ -44,7 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 class LeaveRequestModel {
     constructor(dateStartWork, employeeContact, dateAmountLeave, hourAmountLeave, leaveDaysFromPast, leaveHourFromPast) {
-        this.hourPerDay = employeeContact == 0 ? 8 : 9;
+        this.hourPerDay = employeeContact == 0 ? 9 : 8;
+        console.log("employeeContact  ",employeeContact)
+        console.log("hourPerDay  ",this.hourPerDay)
         this.dateStartWork = this.formatDate(dateStartWork);
         this.employeeContact = this.parseToNumber(employeeContact);
         this.dateAmountLeave = this.parseToNumber(dateAmountLeave);
@@ -67,6 +69,16 @@ class LeaveRequestModel {
         const startWorkDate = moment(dateStartWork);
         const yearExperience = currentDate.diff(startWorkDate, "years", true);
 
+        if (yearExperience <= 1) {
+            const startWorkMonth = startWorkDate.get("month") + 1
+            const currentMonth = currentDate.get("month") + 1
+            const normalRight = currentMonth * 0.5
+            if (currentMonth >= 9) {
+                const rigth = (12 - (startWorkMonth - 1)) * 0.5 + normalRight
+                return rigth;
+            }
+            else return normalRight;
+        }
         if (yearExperience < 3) return 6;
         if (yearExperience < 10) return 12;
         if (yearExperience < 15) return 15;
@@ -111,14 +123,14 @@ class LeaveRequestModel {
             throw { message: "ประสบการณ์น้อยกว่า 3 ปี  <br>จะไม่มีวันลาสะสมที่ได้จากปีก่อน" };
         }
 
-        return { monthExperience, yearExperience, nowRightHourFromMonth };
+        return { monthExperience, yearExperience, nowRightHourFromMonth, startWorkDate };
     }
 
     calculateDayContact(leaveRequestModel) {
-        const { monthExperience, nowRightHourFromMonth } = this.calculateLeaveCommon(leaveRequestModel);
+        const { monthExperience } = this.calculateLeaveCommon(leaveRequestModel);
 
         if (monthExperience >= 4) {
-            const totalLeave = nowRightHourFromMonth - this.getLeaveInHours();
+            const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours();
             return this.convertToDaysAndHours(totalLeave);
         }
         throw new Error("คุณยังไม่ผ่านทดลองงาน");
@@ -130,7 +142,7 @@ class LeaveRequestModel {
 
         if (startWorkDate.year() >= 2025) {
             if (monthExperience >= 4) {
-                const totalLeave = nowRightHourFromMonth - this.getLeaveInHours();
+                const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours();
                 return this.convertToDaysAndHours(totalLeave);
             }
             throw new Error("คุณยังไม่ผ่านทดลองงาน");
@@ -152,11 +164,15 @@ class LeaveRequestModel {
             const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours() + this.getLeaveHoursFromPast();
             return this.convertToDaysAndHours(totalLeave);
         } else {
-            throw new Error("คุณยังไม่ได้เริ่มทำงาน");
+            throw { message: "คุณยังไม่ได้เริ่มทำงาน" }
         }
     }
 
     calculate() {
+        const { yearExperience,startWorkDate  } = this.calculateLeaveCommon(this);
+        const yaerStart = startWorkDate.get("year");
+        if (yaerStart!=2024   && yearExperience >= 1  )
+            throw { message: "โปรแกรมนี้ใช้สำหรับพนักงานที่อายุงานยังไม่ครบ 1 ปี" }
         switch (this.employeeContact) {
             case 0: return this.calculateMonthContact(this);
             case 1: return this.calculateDayContact(this);
