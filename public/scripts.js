@@ -91,13 +91,15 @@ class LeaveRequestModel {
 
     calculateLeaveRights(dateStartWork) {
         const currentDate = this.currentDate
+        const currentWorkYear = currentDate.get("year");
         const startWorkDate = moment(dateStartWork);
+        const startWorkYear = startWorkDate.get("year");
         const yearExperience = currentDate.diff(startWorkDate, "years", true);
 
         if (yearExperience <= 1) {
             const startWorkMonth = startWorkDate.get("month") + 1
             const currentMonth = currentDate.get("month") + 1
-            const normalRight = currentMonth * 0.5
+            const normalRight = startWorkYear == currentWorkYear ? (currentMonth - startWorkMonth + 1) * 0.5 : currentMonth * 0.5
             if (startWorkMonth >= 9) {
                 const rigth = (12 - (startWorkMonth - 1)) * 0.5 + normalRight
                 return rigth;
@@ -169,7 +171,7 @@ class LeaveRequestModel {
 
         if (startWorkDate.year() >= 2025) {
             if (monthExperience >= 4) {
-                const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours(); 
+                const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours();
                 return this.convertToDaysAndHours(totalLeave);
             }
             throw new Error("คุณยังไม่ผ่านทดลองงาน");
