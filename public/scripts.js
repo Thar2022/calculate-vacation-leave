@@ -233,32 +233,23 @@ class LeaveRequestModel {
 
 const displayDateThai = (result) => {
     const date = result.dateAmountLeave
-    const hour = result.hourAmountLeave
+    const hour = result.hourAmountLeave 
     let display = ""
     display = date > 0 && `${date} วัน` || "";
     if (hour > 0) {
         const hourDisplay = Math.floor(hour);
         if (hourDisplay > 0.5)
             display += `  ${hourDisplay} ชั่วโมง`
-        if (hourDisplay % 1 == 0.5)
+        if (hour % 1 == 0.5)
             display += "ครึ่ง"
-        if (hourDisplay == 0.5)
+        if (hour == 0.5)
             display += "ชั่วโมง"
-    }
-
+    } 
     return display || "คุณไม่เหลือสิทธิ์ลา";
 };
 
-function convertDateToYearsMonthsDays(inputDate) {
-    // รับวันที่ที่เข้ามาในรูปแบบ 'mm-dd-yyyy'
-    const targetDate = moment(inputDate);  // แปลงวันที่ที่รับเข้ามาเป็น moment object
-    console.log("inputDate", targetDate)
-    console.log("inputDate", typeof (targetDate))
-    const currentDate = nowDate;  // วันที่ปัจจุบัน
-    console.log("currentDate", currentDate)
-    console.log("currentDate", typeof (currentDate))
-    // คำนวณระยะห่างระหว่างวันที่ปัจจุบันกับวันที่ที่เลือก
-    console.log("currentDate.diff(inputDate)", currentDate.diff(inputDate))
+function convertDateToYearsMonthsDays(inputDate) { 
+    const currentDate = nowDate;  
     const duration = moment.duration(currentDate.diff(inputDate));
 
     const years = duration.years();
