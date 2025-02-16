@@ -27,3 +27,6 @@ html {
   width: 1px;
   cursor: pointer;
 }  
+.toggle-simmulator-div{
+  position: absolute;   
+}
