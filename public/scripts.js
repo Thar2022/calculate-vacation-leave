@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
             formObject.leaveHourFromPast,
         );
         try {
-            const result = leaveRequest.calculate()
+            const result = leaveRequest.calculate() 
             if (result.dateAmountLeave < 0 || result.dateAmountLeave < 0)
                 throw { message: "กรุณากรอกข้อมูลที่ถูกต้อง  <br>เนื่องจากระบบคำนวณแล้วได้ค่าติดลบ" }
             const dateThai = displayDateThai(result);
@@ -95,11 +95,14 @@ class LeaveRequestModel {
         const startWorkDate = moment(dateStartWork);
         const startWorkYear = startWorkDate.get("year");
         const yearExperience = currentDate.diff(startWorkDate, "years", true);
+        const diffMonth = Math.ceil(currentDate.diff(startWorkDate, "months", true));
 
         if (yearExperience <= 1) {
             const startWorkMonth = startWorkDate.get("month") + 1
             const currentMonth = currentDate.get("month") + 1
-            const normalRight = startWorkYear == currentWorkYear ? (currentMonth - startWorkMonth + 1) * 0.5 : currentMonth * 0.5
+            // const normalRight = startWorkYear == currentWorkYear ? (currentMonth - startWorkMonth + 1) * 0.5 : currentMonth * 0.5
+            const normalRight = startWorkYear == currentWorkYear ? diffMonth * 0.5 : currentMonth * 0.5
+
             if (startWorkMonth >= 9) {
                 const rigth = (12 - (startWorkMonth - 1)) * 0.5 + normalRight
                 return rigth;
@@ -159,8 +162,9 @@ class LeaveRequestModel {
         const { monthExperience } = this.calculateLeaveCommon(leaveRequestModel);
 
         if (monthExperience >= 4) {
-            const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours();
-            return this.convertToDaysAndHours(totalLeave);
+            const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours(); 
+            const result = this.convertToDaysAndHours(totalLeave);   
+            return result;
         }
         throw new Error("คุณยังไม่ผ่านทดลองงาน");
     }
@@ -199,18 +203,28 @@ class LeaveRequestModel {
 
     calculate() {
         const { yearExperience, startWorkDate } = this.calculateLeaveCommon(this);
-        const { currentDate } = this
+        const { currentDate, employeeContact } = this
         const yaerStart = startWorkDate.get("year");
         const diffSumulateDateWithStartDate = currentDate.diff(startWorkDate, true);
+
         if (diffSumulateDateWithStartDate < 0)
             throw { message: "กรุณากรอกวันที่ทดลองมากกว่าวันที่เริ่มทำงาน" }
         if (yaerStart != 2024 && yearExperience >= 1)
             throw { message: "โปรแกรมนี้ใช้สำหรับพนักงานที่อายุงานยังไม่ครบ 1 ปี" }
-        switch (this.employeeContact) {
-            case 0: return this.calculateMonthContact(this);
-            case 1: return this.calculateDayContact(this);
-            default: throw new Error("ประเภทการติดต่อไม่ถูกต้อง");
+
+        if (employeeContact == 0 || (employeeContact == 1 && yaerStart == 2024)) {
+            return this.calculateMonthContact(this);
         }
+        else if (employeeContact == 1) {
+            return this.calculateDayContact(this)
+        }
+        else
+            throw new Error("ประเภทสัญญาจ้างไม่ถูกต้อง");
+        // switch (this.employeeContact) {
+        //     case 0: return this.calculateMonthContact(this);
+        //     case 1: return this.calculateDayContact(this);
+        //     default: throw new Error("ประเภทการติดต่อไม่ถูกต้อง");
+        // }
     }
 }
 
