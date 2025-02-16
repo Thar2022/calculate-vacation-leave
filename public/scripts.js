@@ -1,7 +1,8 @@
+let nowDate = moment();
 document.addEventListener("DOMContentLoaded", function () {
     const summitButton = document.getElementById("summit");
     const form = document.querySelector("form");
-    let nowDate = moment();
+
     document.getElementById("reset").addEventListener("click", () => form.reset())
     summitButton.addEventListener("click", function (event) {
         event.preventDefault();
@@ -20,12 +21,16 @@ document.addEventListener("DOMContentLoaded", function () {
             formObject.leaveHourFromPast,
         );
         try {
-            const result = leaveRequest.calculate() 
+            const result = leaveRequest.calculate()
             if (result.dateAmountLeave < 0 || result.dateAmountLeave < 0)
                 throw { message: "กรุณากรอกข้อมูลที่ถูกต้อง  <br>เนื่องจากระบบคำนวณแล้วได้ค่าติดลบ" }
             const dateThai = displayDateThai(result);
-            const resultField = form.querySelector("div[name='result']");
+            const dateExperienceThai = convertDateToYearsMonthsDays(leaveRequest.dateStartWork);
+            const resultField = form.querySelector("span[id='result']");
+            const experienceField = form.querySelector("span[id='experience']");
             resultField.innerHTML = dateThai;
+            experienceField.innerHTML = dateExperienceThai;
+
 
         } catch (err) {
             swal({
@@ -59,12 +64,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     testDateInput.addEventListener('change', function () {
         const selectedDate = testDateInput.value;
+        nowDate = selectedDate ? moment(selectedDate) : moment();
+        const formattedDate = nowDate.format('MM/DD/YYYY')
 
-        const formattedDate = selectedDate ? moment(selectedDate).format('MM/DD/YYYY') : null;
-
-        nowDate = formattedDate;
-
-        selectedDateDiv.textContent = nowDate ? `วันนี้วันที่: ${nowDate}` : 'ยังไม่เลือกวันที่';
+        selectedDateDiv.textContent = nowDate ? `วันนี้วันที่: ${formattedDate}` : 'ยังไม่เลือกวันที่';
     });
 });
 
@@ -162,8 +165,8 @@ class LeaveRequestModel {
         const { monthExperience } = this.calculateLeaveCommon(leaveRequestModel);
 
         if (monthExperience >= 4) {
-            const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours(); 
-            const result = this.convertToDaysAndHours(totalLeave);   
+            const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours();
+            const result = this.convertToDaysAndHours(totalLeave);
             return result;
         }
         throw new Error("คุณยังไม่ผ่านทดลองงาน");
@@ -179,7 +182,7 @@ class LeaveRequestModel {
                 return this.convertToDaysAndHours(totalLeave);
             }
             throw new Error("คุณยังไม่ผ่านทดลองงาน");
-        } else if (startWorkDate.year() === 2024) {
+        } else if (startWorkDate.year() === 2024) {             // start spacial case
             if (leaveRequestModel.dateAmountLeave + leaveRequestModel > 6) {
                 throw new Error("คุณเข้ามาในปี 67 ลามากสุดได้ 6 วัน");
             }
@@ -192,7 +195,7 @@ class LeaveRequestModel {
             if (yearExperience >= 1) {
                 const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours();
                 return this.convertToDaysAndHours(totalLeave);
-            }
+            }                                                 // end spacial case
         } else if (startWorkDate.year() < 2024) {
             const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours() + this.getLeaveHoursFromPast();
             return this.convertToDaysAndHours(totalLeave);
@@ -234,12 +237,48 @@ const displayDateThai = (result) => {
     let display = ""
     display = date > 0 && `${date} วัน` || "";
     if (hour > 0) {
-        display += `  ${Math.floor(hour)} ชั่วโมง`
-        if (hour % 1 == 0.5)
+        const hourDisplay = Math.floor(hour);
+        if (hourDisplay > 0.5)
+            display += `  ${hourDisplay} ชั่วโมง`
+        if (hourDisplay % 1 == 0.5)
             display += "ครึ่ง"
-
+        if (hourDisplay == 0.5)
+            display += "ชั่วโมง"
     }
 
     return display || "คุณไม่เหลือสิทธิ์ลา";
 };
+
+function convertDateToYearsMonthsDays(inputDate) {
+    // รับวันที่ที่เข้ามาในรูปแบบ 'mm-dd-yyyy'
+    const targetDate = moment(inputDate);  // แปลงวันที่ที่รับเข้ามาเป็น moment object
+    console.log("inputDate", targetDate)
+    console.log("inputDate", typeof (targetDate))
+    const currentDate = nowDate;  // วันที่ปัจจุบัน
+    console.log("currentDate", currentDate)
+    console.log("currentDate", typeof (currentDate))
+    // คำนวณระยะห่างระหว่างวันที่ปัจจุบันกับวันที่ที่เลือก
+    console.log("currentDate.diff(inputDate)", currentDate.diff(inputDate))
+    const duration = moment.duration(currentDate.diff(inputDate));
+
+    const years = duration.years();
+    const months = duration.months();
+    const remainingDays = duration.days();
+
+    let result = '';
+
+    if (years > 0) {
+        result += `${years} ปี `;
+    }
+
+    if (months > 0) {
+        result += `${months} เดือน `;
+    }
+
+    if (remainingDays > 0) {
+        result += `${remainingDays} วัน`;
+    }
+
+    return result || '0 วัน';
+}
 

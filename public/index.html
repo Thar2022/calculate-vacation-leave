@@ -21,7 +21,7 @@
         <div class="col-12 text-center">
           <h5>โหมดทดสอบ</h5>
           <div class="d-flex justify-content-center">
-            <input type="date" id="testDate" class="form-control w-50"    min="2025-01-01"/>
+            <input type="date" id="testDate" class="form-control w-50" min="2025-01-01" />
             <div id="selectedDate" class="ms-3 align-self-center">เลือกวันที่ทดสอบ</div>
           </div>
         </div>
@@ -32,7 +32,7 @@
 
       <div class="row header-refresh">
         <div class="toggle-simmulator-div">
-          <input type="checkbox"   data-toggle="toggle" data-size="xs" id="toggle-simmulator">
+          <input type="checkbox" data-toggle="toggle" data-size="xs" id="toggle-simmulator">
         </div>
 
         <h5 class="text-center">คำนวณวันลาพักร้อน<br> สำหรับพนักงานอายุงานไม่ครบ 1 ปี</h5>
@@ -78,9 +78,13 @@
 
         <div class="row mt-3">
           <div class="col-12 col-md-6 mb-3">
-            <div class="input-group justify-content-center" name="result" id="result">
-              <!-- <input type="text" class="form-control" name="result" id="result" placeholder="ผลลัพธ์" readonly
-                aria-describedby="basic-addon1"> -->
+            <div class="input-group justify-content-center">
+              <span>วันที่ลาได้:</span>
+              <span style="color: #e05b4d;" class="output" id="result">-</span>
+            </div>
+            <div class="input-group justify-content-center">
+              <span>อายุงาน:</span>
+              <span class="text-success output"  id="experience">-</span>
             </div>
           </div>
           <div class="col-12 col-md-6 mb-3">
