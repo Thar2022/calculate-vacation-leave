@@ -6,48 +6,8 @@ html {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative; 
-}
-
-/* .car-container {
-  position: absolute;
-  top: 20%;   
-  transform: translateX(-50%);  
-} */
-
-
-.car-container {
-  position: absolute;
-  top: 20%;
-  /* ปรับตำแหน่งรถตามต้องการ */
-  left: -150px;
-  /* เริ่มต้นที่ด้านซ้าย */
-  animation: drive 5s linear infinite;
-  /* เรียกใช้ animation */
-}
-
-.car {
-  width: 150px;
-  /* ขนาดของรถ */
-  height: auto;
-}
-
-@keyframes drive {
-  0% {
-    left: -300px;
-    /* เริ่มต้นจากนอกหน้าจอทางซ้าย */
-  }
-
-  50% {
-    left: 50%;
-    /* วิ่งไปกลางหน้าจอ */
-  }
-
-  100% {
-    left: 100%;
-    /* วิ่งไปนอกหน้าจอทางขวา */
-  }
-}
-
+  overflow: hidden;
+}  
 
 .form-container {
   width: 100%;
@@ -79,7 +39,12 @@ html {
 }
 
 .container {
-  justify-content: center;
+  justify-content: center; 
+}
+
+.container-custom {
+  overflow-y: auto; 
+  height: 100%; 
 }
 
 @media (max-width: 500px) {
@@ -113,9 +78,7 @@ html {
     translate: 0px -5%;
 
   }
-}
-
-
+}  
 
 @media (max-width: 1190px) {
   .container {
