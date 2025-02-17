@@ -2,6 +2,9 @@ body,
 html {
   height: 100%;
   margin: 0;
+  background-image: url('background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .form-container {
@@ -11,6 +14,7 @@ html {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   background-color: #f3ecd1;
+  /* opacity: 90%; */
 }
 
 .header-refresh {
@@ -31,26 +35,26 @@ html {
 .output {
   padding-left: 5px;
 }
- 
+
 @media (max-width: 500px) {
   body {
-    font-size: 14px !important; 
+    font-size: 14px !important;
   }
 
   .form-label {
-    font-size: 14px !important; 
+    font-size: 14px !important;
   }
 
   h5 {
-    font-size: 16px !important; 
+    font-size: 16px !important;
   }
 
   .output {
-    font-size: 14px !important; 
+    font-size: 14px !important;
   }
 
   .btn {
-    font-size: 14px !important; 
+    font-size: 14px !important;
   }
 
   .form-container {
@@ -59,7 +63,7 @@ html {
     padding: 20px;
   }
 
-  .container{
+  .container {
     translate: 0px -5%;
   }
 }
