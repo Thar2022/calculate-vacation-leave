@@ -2,10 +2,44 @@ body,
 html {
   height: 100%;
   margin: 0;
-  background-image: url('background.png');
+  background-image: url('moutain.png');
   background-repeat: no-repeat;
   background-size: cover;
+  position: relative;
+  overflow: hidden;
+} 
+
+/* .car-container {
+  position: absolute;
+  top: 20%;   
+  transform: translateX(-50%);  
+} */
+
+
+.car-container {
+  position: absolute;
+  top: 20%;  /* ปรับตำแหน่งรถตามต้องการ */
+  left: -150px;  /* เริ่มต้นที่ด้านซ้าย */
+  animation: drive 5s linear infinite;  /* เรียกใช้ animation */
 }
+
+.car {
+  width: 150px;  /* ขนาดของรถ */
+  height: auto;
+}
+
+@keyframes drive {
+  0% {
+    left: -300px; /* เริ่มต้นจากนอกหน้าจอทางซ้าย */
+  }
+  50% {
+    left: 50%; /* วิ่งไปกลางหน้าจอ */
+  }
+  100% {
+    left: 100%; /* วิ่งไปนอกหน้าจอทางขวา */
+  }
+}
+ 
 
 .form-container {
   width: 100%;
@@ -13,8 +47,8 @@ html {
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  background-color: #f3ecd1;
-  /* opacity: 90%; */
+  background-color: #f3ecd1; 
+  z-index: 2;
 }
 
 .header-refresh {
