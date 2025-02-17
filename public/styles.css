@@ -7,7 +7,7 @@ html {
   background-size: cover;
   position: relative;
   overflow: hidden;
-} 
+}
 
 /* .car-container {
   position: absolute;
@@ -18,28 +18,37 @@ html {
 
 .car-container {
   position: absolute;
-  top: 20%;  /* ปรับตำแหน่งรถตามต้องการ */
-  left: -150px;  /* เริ่มต้นที่ด้านซ้าย */
-  animation: drive 5s linear infinite;  /* เรียกใช้ animation */
+  top: 20%;
+  /* ปรับตำแหน่งรถตามต้องการ */
+  left: -150px;
+  /* เริ่มต้นที่ด้านซ้าย */
+  animation: drive 5s linear infinite;
+  /* เรียกใช้ animation */
 }
 
 .car {
-  width: 150px;  /* ขนาดของรถ */
+  width: 150px;
+  /* ขนาดของรถ */
   height: auto;
 }
 
 @keyframes drive {
   0% {
-    left: -300px; /* เริ่มต้นจากนอกหน้าจอทางซ้าย */
+    left: -300px;
+    /* เริ่มต้นจากนอกหน้าจอทางซ้าย */
   }
+
   50% {
-    left: 50%; /* วิ่งไปกลางหน้าจอ */
+    left: 50%;
+    /* วิ่งไปกลางหน้าจอ */
   }
+
   100% {
-    left: 100%; /* วิ่งไปนอกหน้าจอทางขวา */
+    left: 100%;
+    /* วิ่งไปนอกหน้าจอทางขวา */
   }
 }
- 
+
 
 .form-container {
   width: 100%;
@@ -47,7 +56,7 @@ html {
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  background-color: #f3ecd1; 
+  background-color: #f3ecd1;
   z-index: 2;
 }
 
@@ -68,6 +77,10 @@ html {
 
 .output {
   padding-left: 5px;
+}
+
+.container {
+  justify-content: center;
 }
 
 @media (max-width: 500px) {
@@ -99,5 +112,16 @@ html {
 
   .container {
     translate: 0px -5%;
+
+  }
+}
+
+
+
+@media (max-width: 1190px) {
+  .container {
+    justify-content: start;
+    position: relative;
+    top: 15%;
   }
 }
