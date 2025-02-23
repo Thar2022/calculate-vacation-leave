@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const experienceField = form.querySelector("span[id='experience']");
 
     document.getElementById("reset").addEventListener("click", () => {
-        resultField.innerHTML =  experienceField.innerHTML = "-";
+        resultField.innerHTML = experienceField.innerHTML = "-";
         form.reset()
     })
     summitButton.addEventListener("click", function (event) {
@@ -33,8 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const dateExperienceThai = convertDateToYearsMonthsDays(leaveRequest.dateStartWork);
             resultField.innerHTML = dateThai;
             experienceField.innerHTML = dateExperienceThai;
-
-
         } catch (err) {
             swal({
                 content: {
@@ -47,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             console.log("error : ", err)
         }
-
     });
 
     const toggleButton = document.getElementById("toggle-simmulator");
@@ -78,17 +75,14 @@ class LeaveRequestModel {
     constructor(currentDate, dateStartWork, employeeContact, dateAmountLeave, hourAmountLeave, leaveDaysFromPast, leaveHourFromPast) {
         this.currentDate = moment(currentDate);
         this.hourPerDay = employeeContact == 0 ? 9 : 8;
-        this.dateStartWork = this.formatDate(dateStartWork);
+        this.dateStartWork = dateStartWork ? moment(dateStartWork) : moment();
         this.employeeContact = this.parseToNumber(employeeContact);
         this.dateAmountLeave = this.parseToNumber(dateAmountLeave);
         this.hourAmountLeave = this.parseToNumber(hourAmountLeave);
         this.leaveDaysFromPast = this.parseToNumber(leaveDaysFromPast);
         this.leaveHourFromPast = this.parseToNumber(leaveHourFromPast);
+        this.passMonthPro = 4;
         this.right = this.calculateLeaveRights(this.dateStartWork);
-    }
-
-    formatDate(dateStartWork) {
-        return dateStartWork ? new Date(dateStartWork).toLocaleDateString('en-CA') : new Date().toLocaleDateString('en-CA');
     }
 
     parseToNumber(value) {
@@ -96,13 +90,18 @@ class LeaveRequestModel {
     }
 
     calculateLeaveRights(dateStartWork) {
-        const currentDate = this.currentDate
+        const { passMonthPro, currentDate, } = this
         const currentWorkYear = currentDate.get("year");
+
         const startWorkDate = moment(dateStartWork);
         const startWorkYear = startWorkDate.get("year");
+
+        const startRightDate = startWorkYear == 2024 ? moment(startWorkDate.clone().add(passMonthPro, 'months').format()) : startWorkDate;
         const yearExperience = currentDate.diff(startWorkDate, "years", true);
-        const diffMonth = Math.ceil(currentDate.diff(startWorkDate, "months", true));
-        console.log("diffMonth", diffMonth)
+        const diffMonth = (() => {
+            const diff = Math.ceil(currentDate.diff(startRightDate, "months", true));
+            return diff < 0 ? 0 : Number(diff);
+        })();
 
         if (yearExperience < 1) {
             const startWorkMonth = startWorkDate.get("month") + 1
@@ -114,8 +113,8 @@ class LeaveRequestModel {
             }
             else
                 return normalRight;
-
         }
+
         if (yearExperience < 3) return 6;
         if (yearExperience < 10) return 12;
         if (yearExperience < 15) return 15;
@@ -147,17 +146,12 @@ class LeaveRequestModel {
     }
 
     calculateLeaveCommon(leaveRequestModel) {
-        const currentDate = this.currentDate
+        const { currentDate, hourPerDay } = this
         const currentMonth = currentDate.get("month") + 1;
-        const rightHourPerMonth = this.hourPerDay / 2;
+        const rightHourPerMonth = hourPerDay / 2;
         const startWorkDate = moment(leaveRequestModel.dateStartWork);
         const monthExperience = currentDate.diff(startWorkDate, "months");
-        // console.log("currentDate", currentDate)
-        // console.log("startWorkDate", startWorkDate)
-        // console.log("diff", monthExperience)
-        // console.log("diff cxc", currentDate.diff(startWorkDate, "months", true))
         const yearExperience = currentDate.diff(startWorkDate, "years");
-        // console.log("yearExperience yearExperience yearExperience",currentDate.diff(startWorkDate, "years",true))
 
         const nowRightHourFromMonth = currentMonth * rightHourPerMonth;
 
@@ -170,9 +164,9 @@ class LeaveRequestModel {
 
     calculateDayContact(leaveRequestModel) {
         const { monthExperience } = this.calculateLeaveCommon(leaveRequestModel);
-        // console.log("monthExperience", monthExperience)
+        const { passMonthPro } = this 
 
-        if (monthExperience >= 4) {
+        if (monthExperience >= passMonthPro) {
             const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours();
             const result = this.convertToDaysAndHours(totalLeave);
             return result;
@@ -181,36 +175,13 @@ class LeaveRequestModel {
     }
 
     calculateMonthContact(leaveRequestModel) {
-        const { monthExperience, yearExperience, nowRightHourFromMonth } = this.calculateLeaveCommon(leaveRequestModel);
-        const startWorkDate = moment(leaveRequestModel.dateStartWork);
-
-        if (startWorkDate.year() >= 2025) {
-            if (monthExperience >= 4) {
-                const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours();
-                return this.convertToDaysAndHours(totalLeave);
-            }
-            throw new Error("คุณยังไม่ผ่านทดลองงาน");
-        } else if (startWorkDate.year() === 2024) {             // start spacial case
-            if (leaveRequestModel.dateAmountLeave + leaveRequestModel > 6) {
-                throw new Error("คุณเข้ามาในปี 67 ลามากสุดได้ 6 วัน");
-            }
-
-            if (yearExperience < 1) {
-                const totalLeave = nowRightHourFromMonth - this.getLeaveInHours();
-                return this.convertToDaysAndHours(totalLeave);
-            }
-
-            if (yearExperience >= 1) {
-                // console.log("yearExperience >= 1")
-                const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours();
-                return this.convertToDaysAndHours(totalLeave);
-            }                                                 // end spacial case
-        } else if (startWorkDate.year() < 2024) {
-            const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours() + this.getLeaveHoursFromPast();
+        const { monthExperience } = this.calculateLeaveCommon(leaveRequestModel);
+        const { passMonthPro } = this
+        if (monthExperience >= passMonthPro) {
+            const totalLeave = this.getLeaveRightsInHours() - this.getLeaveInHours();
             return this.convertToDaysAndHours(totalLeave);
-        } else {
-            throw { message: "คุณยังไม่ได้เริ่มทำงาน" }
         }
+        throw new Error("คุณยังไม่ผ่านทดลองงาน");
     }
 
     calculate() {
@@ -221,7 +192,7 @@ class LeaveRequestModel {
 
         if (diffSumulateDateWithStartDate < 0)
             throw { message: "กรุณากรอกวันที่ทดลองมากกว่าวันที่เริ่มทำงาน" }
-        if (yaerStart != 2024 && yearExperience >= 1)
+        if (yearExperience >= 1)
             throw { message: "โปรแกรมนี้ใช้สำหรับพนักงานที่อายุงานยังไม่ครบ 1 ปี" }
 
         if (employeeContact == 0 || (employeeContact == 1 && yaerStart == 2024)) {
@@ -258,10 +229,6 @@ function convertDateToYearsMonthsDays(inputDate) {
     const months = currentDate.diff(inputDate, 'months') % 12;
     const tempDate = moment(inputDate).add(years, 'years').add(months, 'months');
     const days = currentDate.diff(tempDate, 'day');
-    // console.log(" currentDate.diff(inputDate, 'days')" , currentDate.diff(inputDate, 'days') )
-    // console.log(" currentDate.diff(inputDate, 'days') % 30;" , currentDate.diff(inputDate, 'days') % 30)
-    
-    // console.log(" currentDate.diff(tempDate, 'days')" ,currentDate.diff(tempDate, 'days'))
 
     let result = '';
 

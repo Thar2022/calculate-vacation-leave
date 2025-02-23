@@ -19,10 +19,10 @@
       <div class="mt-4 form-container" id="mode-simulater" hidden>
         <div class="row mb-3">
           <div class="col-12 text-center">
-            <h5>โหมดทดสอบ</h5>
+            <h5>คำนวณวันลาในอนาคต</h5>
             <div class="d-flex justify-content-center">
               <input type="date" id="testDate" class="form-control w-50" min="2025-01-01" />
-              <div id="selectedDate" class="ms-3 align-self-center">เลือกวันที่ทดสอบ</div>
+              <div id="selectedDate" class="ms-3 align-self-center">เลือกวันที่ต้องการลาในอนาคต</div>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <div class="row">
             <!-- วันที่เริ่มงาน -->
             <div class=" col-12 col-md-6">
-              <label class="form-label">วันที่เริ่มงาน</label>
+              <label class="form-label">วันที่ (เริ่มงาน)</label>
               <input type="date" class="form-control" name="dateStartWork" placeholder="เลือกวันที่เริ่มเข้าทำงานที่นี่"
                 min="2024-01-01" required />
             </div>
@@ -63,12 +63,12 @@
           <div class="row">
             <!-- วันที่เคยลาในปีนี้ -->
             <div class="col-12 col-md-6  ">
-              <label class="form-label">วันที่เคยลาในปีนี้</label>
+              <label class="form-label">วันที่ (เคยลาในปีนี้)</label>
               <input type="number" class="form-control" name="dateAmountLeave" placeholder="กรอกจำนวนวัน" min="0" />
             </div>
             <!-- ชั่วโมงที่เคยลาในปีนี้ -->
             <div class="col-12 col-md-6 mt-1 mt-md-0">
-              <label for="date-amont-leave" class="form-label me-2">ชั่วโมงที่เคยลาในปีนี้</label>
+              <label for="date-amont-leave" class="form-label me-2">ชั่วโมง (เคยลาในปีนี้)</label>
               <input type="number" class="form-control" name="hourAmountLeave" min="0" step="0.5"
                 placeholder="กรอกจำนวนชั่วโมง" />
             </div>
